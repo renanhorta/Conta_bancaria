@@ -14,9 +14,18 @@ namespace ContasBancaias_at.Models
             this.correntista = correntista;
             this.saldo = saldo;
         }
+        public int GetNumConta()
+        {
+            return numConta;
+        }
         public override string ToString()
         {
             return correntista + "-" +numConta + " R$" + saldo;
+        }
+
+        public string salvarConta()
+        {
+            return this.numConta + ";" + this.correntista + ";" + this.saldo;
         }
     }
 }

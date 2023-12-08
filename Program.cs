@@ -11,13 +11,16 @@ namespace ContasBancaias_at
         static void Main(string[] args)
         {
             List<Conta> conta = new List<Conta>();
-
+            // adiciona objetos conta na lista de Contas
             conta = lerConta(conta);
-            exibirConta(conta);
+
+            string localArquivo = @"C:\Users\Renan_PC\source\repos\ContasBancaias_at\utils\csv_conta.csv";
+            Menu menu1 = new Menu(localArquivo);
+            menu1.exibirMenu(conta);
         }
 
         public static List<Conta> lerConta(List<Conta> conta)
-        {   
+        {
             const string localArquivo = @"C:\Users\Renan_PC\source\repos\ContasBancaias_at\utils\csv_conta.csv";
             try
             {
@@ -26,7 +29,7 @@ namespace ContasBancaias_at
                     bool primeiraLinha = true;
                     string linha = arquivo.ReadLine();
                     while (linha != null)
-                    {   
+                    {
                         if (!primeiraLinha)
                         {
                             try
@@ -34,13 +37,14 @@ namespace ContasBancaias_at
                                 // adicionar um try catch para as entradas numericas
                                 string[] campos = linha.Split(';');
                                 int numConta = int.Parse(campos[0]);
-                                string correntista = campos[1];
+                                string correntista = campos[1].Replace(",", ".");
                                 double saldo = double.Parse(campos[2]);
                                 conta.Add(new Conta(numConta, correntista, saldo));
-                            } catch
-                                {
+                            }
+                            catch
+                            {
                                 Console.WriteLine("Erro nos dados dos arquivos.");
-                                }
+                            }
                         }
                         else
                         {
@@ -52,18 +56,13 @@ namespace ContasBancaias_at
                     }
                 }
 
-            } catch (Exception ex){
+            }
+            catch (Exception)
+            {
                 Console.WriteLine("Erro na leitura do arquivo.");
             }
 
             return conta;
-        }
-        
-        public static void exibirConta(List<Conta> lista) { 
-            foreach (Conta conta in lista)
-            {
-                Console.WriteLine(conta);
-            }
         }
     }
 }
