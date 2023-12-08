@@ -64,38 +64,61 @@ namespace ContasBancaias_at.Models
 
         public void incluirconta(List<Conta> conta)
         {
+            int numContaNovo;
+            string correntistaNovo;
+            double saldoNovo;
 
-            if (conta.Count > 0)
+            try 
             {
-                Conta ultimaConta = conta[conta.Count - 1];
-                int numContaNovo = (ultimaConta.GetNumConta() + 1);
-                Console.WriteLine(numContaNovo);
-                //try{
-                //    Conta contaNova = new Conta(numContaNovo,)        
-                //}
+                if (conta.Count > 0){
+
+                    Conta ultimaConta = conta[conta.Count - 1];
+                    numContaNovo = (ultimaConta.GetNumConta() + 1);
+                    Console.WriteLine("Insira o nome e sobrenome do correntista:");
+                    correntistaNovo = Console.ReadLine();
+                    try {
+                        Console.WriteLine("Insira o seu saldo inicial: ");
+                        saldoNovo = double.Parse(Console.ReadLine());
+                        if(saldoNovo < 0) {
+                            Console.WriteLine("O valor deve se maior  ou igual a zero");
+                            incluirconta(conta);
+                            return;
+                        }
+                    }catch (Exception) {
+                        Console.WriteLine("Insira um valor válido, não utilize virgulas.\n tente novamente.");
+                        incluirconta(conta);
+                        return;
+                    }
+
+                    Conta contaNova = new Conta(numContaNovo, correntistaNovo, saldoNovo);
+                    conta.Add(contaNova);
+                        
+                }
             }
-            else
+            catch (Exception)
             {
                 Console.WriteLine("A lista de contas está vazia.");
+                exibirMenu(conta);
             }
 
         }
         
-        public void finalizarMenu(List<Conta> listaConta)
+        public void finalizarMenu(List<Conta> conta)
         {
             Console.WriteLine("O programa será finalizado. \nGravando arquivo...");
             try
             {
                 using (var arquivo = new StreamWriter(localArquivo))
                 {
-                    foreach(Conta conta in listaConta)
+                    foreach(Conta cc in conta)
                     {
-                        arquivo.WriteLine(conta.salvarConta());
+                        arquivo.WriteLine(cc.salvarConta());
                     }
                 }
             } catch (FileNotFoundException) 
             {
                 Console.WriteLine("Não foi possivel gravar o arquivo");
+                exibirMenu(conta);
             }
         }
     }
