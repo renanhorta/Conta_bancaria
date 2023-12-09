@@ -1,27 +1,17 @@
-﻿using System;
-using System.Collections;
+﻿/*using ContasBancarias_at.Models;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ContasBancaias_at.Models
+namespace ContasBancarias_at.Menu
 {
     public class Menu
     {
-        //public List<Conta> listaContas = new List<Conta>();
-        public string localArquivo;
-        public Menu(string localArquivo) {
-            this.localArquivo = localArquivo;//.Replace("/", "//");
-        }
+        public static int input;
 
-        public void exibirMenu(List<Conta> conta)
-        {   
-            int input;
-
+        public static void exibirMenu(List<Conta> conta)
+        {             
             do
             {
                 Console.WriteLine("--------------------------------------");
@@ -32,33 +22,12 @@ namespace ContasBancaias_at.Models
                 Console.WriteLine("4 - Sair do menu");
                 Console.WriteLine("--------------------------------------");
                 input = int.Parse(Console.ReadLine());
-                validarEntrada(input, conta);
-            } while (input < 1 || input > 4);
+                Validacao.validarEntrada(input, conta);
+            } while (input != 4);
         }
 
-        public void validarEntrada(int input, List<Conta> conta)
-        {
-            switch (input)
-            {
-                case 1:
-                    incluirconta(conta);
-                    break;
-                case 2:
-                    //alterarConta(conta);
-                    break;
-                case 3:
-                    gerarRelatorio(conta);
-                    break;
-                case 4:
-                    finalizarMenu(conta);
-                    break;
-                default:
-                    Console.WriteLine("Opção Inválida.");
-                    exibirMenu(conta);
-                    break;
-            }
-        }
-
+ 
+        
         public void incluirconta(List<Conta> conta) {
             int idNovo;
             string correntistaNovo;
@@ -67,7 +36,7 @@ namespace ContasBancaias_at.Models
             try {
                 if (conta.Count > 0) {
                     Conta ultimaConta = conta[conta.Count - 1];
-                    idNovo = (ultimaConta.GetIdConta() + 1);
+                    idNovo = ultimaConta.Id + 1;
                     Console.WriteLine("Insira o nome e sobrenome do correntista:");
                     correntistaNovo = Console.ReadLine();
                     if (correntistaNovo.Split(' ').Length < 2) {
@@ -105,8 +74,6 @@ namespace ContasBancaias_at.Models
 
         }
         
-        //public void alterarConta(List<Conta> conta) { }
-
         public void gerarRelatorio(List<Conta> conta) {
             int input;
             do {
@@ -149,6 +116,7 @@ namespace ContasBancaias_at.Models
                 exibirMenu(conta);
             }
         }
+        
         public void mostrarNegativados(List<Conta> conta) {
             List<Conta> contasNegativas = new List<Conta>();
             try {
@@ -169,6 +137,7 @@ namespace ContasBancaias_at.Models
             }
             exibirMenu(conta);
         }
+        
         public void mostrarValoresSelecionados(List<Conta> conta) {
             double saldoAPesquisar;
             Console.WriteLine("Qual o valor que deseja pesquisar?");
@@ -192,6 +161,7 @@ namespace ContasBancaias_at.Models
                 gerarRelatorio(conta);
             }
         }
+        
         public void mostrarTodosClientes(List<Conta> conta)
         {
             foreach (Conta cc in conta)
@@ -200,6 +170,7 @@ namespace ContasBancaias_at.Models
             }
             exibirMenu(conta);
         }
+        
         public void finalizarMenu(List<Conta> conta)
         {
             Console.WriteLine("O programa será finalizado. \nGravando arquivo...");
@@ -217,3 +188,4 @@ namespace ContasBancaias_at.Models
     }
 }
 
+*/

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ContasBancaias_at.Models
 {
-    internal class Interfaces
+    internal interface IConta
     {
     }
 }
