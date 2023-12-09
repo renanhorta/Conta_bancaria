@@ -2,7 +2,7 @@
 using ContasBancaias_at.Models;
 using System;
 
-namespace ContasBancarias_at
+namespace ContasBancarias_at.Models
 {
     public class Conta : InterfaceConta
     {
