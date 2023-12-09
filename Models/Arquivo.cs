@@ -8,7 +8,7 @@ namespace ContasBancarias_at.Models
 {
     public class Arquivo
     {
-        const string caminhoArquivo = @"C:\Users\Renan_PC\source\repos\ContasBancaias_at\utils\csv_conta.csv";
+        const string caminhoArquivo = @"C:\Users\Renan_PC\source\repos\ContasBancaias_at\src\csv_conta.csv";
         public static List<Conta> LerArquivo(List<Conta> listadeContas)
         {
             try
