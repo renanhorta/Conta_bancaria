@@ -1,7 +1,10 @@
 ﻿
+using ContasBancaias_at.Models;
+using System;
+
 namespace ContasBancarias_at
 {
-    public class Conta
+    public class Conta : InterfaceConta
     {
         public int Id { get; set; }
         public string Correntista { get; set; }
@@ -32,6 +35,29 @@ namespace ContasBancarias_at
         public bool TemSaldoCompativel(double saldoTeto)
         {
             return Saldo >= saldoTeto;
+        }
+        public string DebitarSaldo(double valor)
+        {
+            Saldo -= valor;
+
+            if (Saldo < 0)
+            {
+                return $"Com um débito no valor de {valor} reais. O(a) Correntista(a) {Correntista} está negativado(a).\nSaldo: R$ {Saldo}";
+            }
+
+            if (Saldo == 0)
+            {
+                return $"Com um débito no valor de {valor} reais. O(a) Correntista(a) {Correntista} está com a conta zerada.";
+            }
+
+            return $"Foi feito um débito no valor de {valor} reais.\nSaldo: R$ {Saldo}";
+        }
+
+
+        public string CreditarSaldo(double valor)
+        {
+            Saldo += valor;
+            return $"Foi creditado um valor de {valor} na sua Conta, {Correntista}";
         }
     }
 }

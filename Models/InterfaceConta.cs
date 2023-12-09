@@ -8,9 +8,9 @@ namespace ContasBancaias_at.Models
 {
     public interface InterfaceConta
     {
-        void DebitarSaldo(double valor);
+        string DebitarSaldo(double valor);
 
-        void CreditarSaldo(double valor);
+        string CreditarSaldo(double valor);
 
     }
 }
