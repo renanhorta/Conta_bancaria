@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace ContasBancaias_at.Models
 {
-    internal interface IConta
+    public interface InterfaceConta
     {
+        void DebitarSaldo(double valor);
+
+        void CreditarSaldo(double valor);
+
     }
 }

@@ -17,10 +17,8 @@ namespace ContasBancarias_at.Models
                 {
                     bool cabecalhoLido = false;
                     string linha = arquivo.ReadLine();
-                    Console.WriteLine("1x" + linha);
                     while (linha != null)
                     {
-                        Console.WriteLine("1.5x" + linha);
                         if (!cabecalhoLido)
                         {
                             string[] campos = linha.Split(';');
@@ -34,7 +32,6 @@ namespace ContasBancarias_at.Models
                             cabecalhoLido = true;
                         }
                         linha = arquivo.ReadLine();
-                        Console.WriteLine("2x" + linha);
                     }
                 }
             }catch (Exception)
@@ -43,6 +40,24 @@ namespace ContasBancarias_at.Models
             }
 
             return listadeContas;
+        }
+
+        public static void GravarArquivo(List <Conta> listadeContas)
+        {
+            try
+            {
+                using (var arquivo = new StreamWriter(caminhoArquivo))
+                {
+                    foreach(Conta conta in listadeContas)
+                    {
+                        arquivo.WriteLine(conta.SalvarContaCSV());
+                    }
+                }
+            }
+            catch (FileNotFoundException)
+            {
+                Console.WriteLine("Erro na gravação de arquivo.");
+            }
         }
     }
 }

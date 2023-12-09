@@ -18,12 +18,13 @@ namespace ContasBancarias_at.Menu
                 Console.WriteLine("Insira uma das opções abaixo para seguir com o programa:");
                 Console.WriteLine("1 - Incluir uma conta");
                 Console.WriteLine("2 - Alterar uma conta");
-                Console.WriteLine("3 - Gerar um relatório");
-                Console.WriteLine("4 - Sair do menu");
+                Console.WriteLine("3 - Excluir uma conta");
+                Console.WriteLine("4 - Gerar um relatório");
+                Console.WriteLine("5 - Sair do menu");
                 Console.WriteLine("--------------------------------------");
                 input = int.Parse(Console.ReadLine());
                 Validacao.validarEntrada(input, conta);
-            } while (input != 4);
+            } while (input != 5);
         }
 
  
