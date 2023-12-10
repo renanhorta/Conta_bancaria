@@ -11,7 +11,7 @@ namespace ContasBancarias_at
         {
             List<Conta> listaContas = new List<Conta>();
             Arquivo.LerArquivo(listaContas);
-            MenuExibido.ExibirMenu(listaContas);
+            Menus.ExibirMenu(listaContas);
             
         }
 

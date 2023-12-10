@@ -58,6 +58,8 @@ namespace ContasBancarias_at.Models
             {
                 Console.WriteLine("Erro na gravação de arquivo.");
             }
+
+            Console.WriteLine("O Arquivo foi gravado com sucesso.");
         }
     }
 }

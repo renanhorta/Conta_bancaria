@@ -1,37 +1,42 @@
-﻿/*using ContasBancarias_at.Models;
+﻿using ContasBancarias_at.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ContasBancarias_at.Validacao
+namespace ContasBancarias_at.ValidarEntradas
 {
-    public class Validacao
-    {
-        public static void validarEntrada(int input, List<Conta> conta)
+    public class Validacao { 
+        
+        public static int LerInteiro()
         {
-            switch (input)
+            int num = 0;
+            do
             {
-                case 1:
-                    incluirconta(conta);
+                try
+                {
+                    Console.WriteLine("Entre com a opção: ");
+                    num = int.Parse(Console.ReadLine());
                     break;
-                case 2:
-                    //alterarConta(conta);
-                    break;
-                case 3:
-                    gerarRelatorio(conta);
-                    break;
-                case 4:
-                    finalizarMenu(conta);
-                    break;
-                default:
-                    Console.WriteLine("Opção Inválida.");
-                    
-                    break;
-            }
+                }catch (FormatException)
+                {
+                    Console.WriteLine("Tipo de entrada inválida");
+                }
+            }while (true);
+            return num;
+
         }
 
+        public static Conta ValidarObjtNaLista (int num, List<Conta> listaDeContas)
+        {
+            if ((num > 0) && (num < listaDeContas.Count))
+            {
+                Conta contaEncontrada = listaDeContas.Find(conta => conta.Id == num);
+                return contaEncontrada;
+            }
+            else
+            {
+                Console.WriteLine("Conta não encontrada.");
+                return null;
+            }
+        }
     }
 }
-*/

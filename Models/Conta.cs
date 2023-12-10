@@ -50,14 +50,14 @@ namespace ContasBancarias_at.Models
                 return $"Com um débito no valor de {valor} reais. O(a) Correntista(a) {Correntista} está com a conta zerada.";
             }
 
-            return $"Foi feito um débito no valor de {valor} reais.\nSaldo: R$ {Saldo}";
+            return $"Foi feito um débito no valor de {valor} reais.\nNovo Saldo: R$ {Saldo}";
         }
 
 
         public string CreditarSaldo(double valor)
         {
             Saldo += valor;
-            return $"Foi creditado um valor de {valor} na sua Conta, {Correntista}";
+            return $"Foi creditado um valor de {valor} reais na sua Conta, {Correntista} \n Novo Saldo R$: {Saldo}";
         }
     }
 }

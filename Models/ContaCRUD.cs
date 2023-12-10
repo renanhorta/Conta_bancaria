@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ContasBancarias_at.Menu;
+using ContasBancarias_at.ValidarEntradas;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 
@@ -6,28 +8,40 @@ namespace ContasBancarias_at.Models
 {
     public static class ContaCRUD
     {
-        public static void AlterarConta(Conta conta)
+        public static void AlterarConta(List<Conta> listaDeContas)
         {
-            do
-            {
+            Conta contaAlterada = PesquisarConta(listaDeContas);
+            int input;
+            double valor = 0;
+            do {
                 Console.WriteLine("A alteração é do tipo Débito [1] ou do tipo Crédito [2]");
-                int input = int.Parse(Console.ReadLine());
-                if (input == 1)
-                {
-                    Console.WriteLine("Insira o valor para debitar");
-                    double valor = double.Parse(Console.ReadLine());
-                    Console.WriteLine(conta.DebitarSaldo(valor));
+                input = Validacao.LerInteiro();
+
+                if (input == 1)  {
+                    while (valor <= 0) {
+                        Console.WriteLine("Insira o valor para debitar");
+                        valor = double.Parse(Console.ReadLine().Replace(".", "").Replace(",", "."), CultureInfo.InvariantCulture);
+                        if (valor <= 0) {
+                            Console.WriteLine("Insira uma quantia válida.");
+                        }
+                    }
+                    Console.WriteLine(contaAlterada.DebitarSaldo(valor));
                     break;
                 }
-                if (input == 2)
-                {
-                    Console.WriteLine("Insira o valor para creditar");
-                    double valor = double.Parse(Console.ReadLine());
-                    Console.WriteLine(conta.CreditarSaldo(valor));
+
+                if (input == 2) {
+                    while (valor <= 0) {
+                        Console.WriteLine("Insira o valor para creditar");
+                        valor = double.Parse(Console.ReadLine().Replace(".", "").Replace(",", "."), CultureInfo.InvariantCulture);
+                        if (valor <= 0) {
+                            Console.WriteLine("Insira uma quantia válida.");
+                        }
+                    }
+                    Console.WriteLine(contaAlterada.CreditarSaldo(valor));
                     break;
                 }
-                Console.WriteLine("Etre com um valor válido.");
             }
+
             while (true);
         }
 
@@ -77,59 +91,49 @@ namespace ContasBancarias_at.Models
 
         public static Conta PesquisarConta(List<Conta> listaDeContas)
         {
-            Console.WriteLine("Insira o ID da conta que você deseja encontrar:");
-            int inputId = int.Parse(Console.ReadLine());
+            bool opcaoValida = false;
+            Conta contaEncontrada = new Conta();
 
-            try
-            {
-                Conta contaEncontrada = listaDeContas.Find(conta => conta.Id == inputId);
+            if (listaDeContas.Count == 0) {
+                Console.WriteLine("A lista de contas está vazia.");
+                Menus.ExibirMenu(listaDeContas);
+            }
+
+            while (!opcaoValida) {
+                Console.WriteLine("Insira o ID da conta que você deseja encontrar");
+                int inputId = Validacao.LerInteiro();
+                contaEncontrada = Validacao.ValidarObjtNaLista(inputId, listaDeContas);
                 if (contaEncontrada != null)
                 {
-                    return contaEncontrada;
-                }
-                else
-                {
-                    Console.WriteLine("Conta não encontrada.");
-                    return null;
+                    opcaoValida = true;
                 }
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Ocorreu um erro: {ex.Message}");
-                return null;
-            }
+            return contaEncontrada;
         }
 
         public static void ExcluirConta(List<Conta> listaDeContas)
         {
             Conta contaExcluida = PesquisarConta(listaDeContas);
+
             if (listaDeContas.Contains(contaExcluida))
             {
                 bool entradaValida = false;
                 do
                 {
-                    Console.WriteLine($"Você deseja excluir a seguinte conta?\n{contaExcluida}\n[1] SIM - [2] NÃO");
-                    if (int.TryParse(Console.ReadLine(), out int input)) {
-                        if (input == 1)
-                        {
-                            listaDeContas.Remove(contaExcluida);
-                            Console.WriteLine($"A conta foi removida com sucesso");
-                            entradaValida = true;
-                        }
-                        else if (input == 2)
-                        {
-                            Console.WriteLine($"A conta NÃO será removida");
-                            entradaValida = true;
-                        }
-                        else
-                        {
-                            Console.WriteLine("Insira 1 para SIM ou 2 para NÃO.");
-                        }
+                    Console.WriteLine($"Você deseja excluir a seguinte conta?\n{contaExcluida}\n\n[1] SIM - [2] NÃO");
+                    int input = Validacao.LerInteiro();
+
+                    if (input == 1) {
+                        listaDeContas.Remove(contaExcluida);
+                        Console.WriteLine($"A conta foi removida com sucesso");
+                        entradaValida = true;
                     }
-                    else
-                    {
-                        Console.WriteLine("Insira um número válido (1 ou 2).");
+                    
+                    if (input == 2) {
+                        Console.WriteLine($"A conta NÃO será removida");
+                        entradaValida = true;
                     }
+
                 } while (!entradaValida);
             }
             else
@@ -211,9 +215,9 @@ namespace ContasBancarias_at.Models
             }
         }
 
-        public static void MostrarTodosClientes(List<Conta> conta)
+        public static void MostrarTodosClientes(List<Conta> listaDeContas)
         {
-            foreach (Conta cc in conta)
+            foreach (Conta cc in listaDeContas)
             {
                 Console.WriteLine(cc);
             }

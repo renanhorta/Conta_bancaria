@@ -1,29 +1,78 @@
 ﻿using System;
 using System.Collections.Generic;
 using ContasBancarias_at.Models;
+using ContasBancarias_at.ValidarEntradas;
 
 namespace ContasBancarias_at.Menu
 {
-    public class MenuExibido
+    public class Menus
     {
         public static void ExibirMenu(List<Conta> listaDeContas)
         {
-            int input;
-            do
+            const int FIM = 5;
+            int input = LerComOpcao();
+            while (input != FIM)
             {
-                Console.WriteLine("--------------------------------------");
-                Console.WriteLine("Insira uma das opções abaixo para seguir com o programa:");
-                Console.WriteLine("1 - Incluir uma conta");
-                Console.WriteLine("2 - Alterar uma conta");
-                Console.WriteLine("3 - Excluir uma conta");
-                Console.WriteLine("4 - Gerar um relatório");
-                Console.WriteLine("5 - Sair do menu");
-                Console.WriteLine("--------------------------------------");
-                input = int.Parse(Console.ReadLine());
-            } while (input != 5);
+                SelecionarOpcaoMenu(input, listaDeContas);
+                input = LerComOpcao();
+            }
         }
+        public static void OpcoesDoMenuPrincipal()
+        {
+            Console.WriteLine("--------------------------------------");
+            Console.WriteLine("Insira uma das opções abaixo para seguir com o programa:");
+            Console.WriteLine("1 - Incluir uma conta");
+            Console.WriteLine("2 - Alterar uma conta");
+            Console.WriteLine("3 - Excluir uma conta");
+            Console.WriteLine("4 - Gerar um relatório");
+            Console.WriteLine("5 - Sair do menu");
+            Console.WriteLine("--------------------------------------");
+        }
+        public static int LerComOpcao() {
+            bool opcaoValida = false;
+            int input = 0; ;
+            do {
+                try { 
+                    OpcoesDoMenuPrincipal();
 
- 
+                    input = Validacao.LerInteiro();
+                    if ((input >= 1) && (input <= 5)) {
+                        opcaoValida = true;
+                    }
+                    else {
+                        Console.WriteLine("Entre com uma opção válida");
+                    }
+                } catch(FormatException) {
+                    Console.WriteLine("Formato de entrada inválido");
+                }
+            } while (!opcaoValida);
+            return input;
+        }
+        public static void SelecionarOpcaoMenu(int input, List<Conta> listaDeContas)
+        {
+            switch (input)
+            {
+                case 1: ContaCRUD.Incluirconta(listaDeContas);
+                    break;
+                case 2:
+                    ContaCRUD.AlterarConta(listaDeContas);
+                    break;
+                case 3:
+                    ContaCRUD.ExcluirConta(listaDeContas); ;
+                    break;
+                case 4:
+                    GerarRelatorio(listaDeContas); ;
+                    break;
+                case 5:
+                    Console.WriteLine("O programa ira ser fechado. \n Gravando arquivo...");
+                    Arquivo.GravarArquivo(listaDeContas);
+                    break;
+            }
+        }
+        public static void GerarRelatorio(List<Conta> listaDeContas)
+        {
+
+        }
         /*
         public void gerarRelatorio(List<Conta> conta) {
             int input;
