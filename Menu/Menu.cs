@@ -19,7 +19,7 @@ namespace ContasBancarias_at.Menu
             FinalizarMenu(listaDeContas);
         }
         
-        public static void OpcoesDoMenuPrincipal()
+        private static void OpcoesDoMenuPrincipal()
         {
             Console.WriteLine("--------------------------------------");
             Console.WriteLine("Insira uma das opções abaixo para seguir com o programa:");
@@ -52,11 +52,12 @@ namespace ContasBancarias_at.Menu
             return input;
         }
        
-        public static void SelecionarOpcaoMenu(int input, List<Conta> listaDeContas)
+        private static void SelecionarOpcaoMenu(int input, List<Conta> listaDeContas)
         {
             switch (input)
             {
-                case 1: ContaCRUD.Incluirconta(listaDeContas);
+                case 1: 
+                    ContaCRUD.Incluirconta(listaDeContas);
                     break;
                 case 2:
                     ContaCRUD.AlterarConta(listaDeContas);
@@ -86,7 +87,7 @@ namespace ContasBancarias_at.Menu
 
         }
 
-        public static void OpcoesDoMenuRelatorio()
+        private static void OpcoesDoMenuRelatorio()
         {
             Console.WriteLine("---------------RELATÓRIOS-----------------");
             Console.WriteLine("Insira uma das opções abaixo para seguir com o programa:");
@@ -124,7 +125,7 @@ namespace ContasBancarias_at.Menu
             return input;
         }
 
-        public static void SelecionarOpcaoMenuRelatorio(int input, List<Conta> listaDeContas)
+        private static void SelecionarOpcaoMenuRelatorio(int input, List<Conta> listaDeContas)
         {
             switch (input)
             {

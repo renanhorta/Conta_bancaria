@@ -110,8 +110,7 @@ namespace ContasBancarias_at.ValidarEntradas
                 Console.WriteLine("Insira o saldo:");
                 string input = Console.ReadLine();
 
-                if (double.TryParse(input.Replace(",", "."), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out saldoNovo))
-                {
+                if (double.TryParse(input.Replace(",", "."), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out saldoNovo)) {
                     if (saldoNovo > 0) {
                         return saldoNovo;
                     }
@@ -121,6 +120,26 @@ namespace ContasBancarias_at.ValidarEntradas
                 }
                 else {
                     Console.WriteLine("Insira um valor válido.");
+                }
+
+            } while (true);
+        }
+
+        public static double ValidarSaldoNovo()
+        {
+            double saldoNovo;
+
+            do {
+                Console.WriteLine("Insira o saldo:");
+                string input = Console.ReadLine();
+
+                if (double.TryParse(input.Replace(",", "."), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out saldoNovo)) {
+                    if (saldoNovo >= 0) {
+                        return saldoNovo;
+                    }
+                }
+                else {
+                    Console.WriteLine("Insira um valor válido. Maior ou igual a zero");
                 }
 
             } while (true);

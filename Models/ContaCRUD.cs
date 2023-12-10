@@ -20,7 +20,7 @@ namespace ContasBancarias_at.Models
                 if (input == 1)  {
                     while (valor <= 0) {
                         Console.WriteLine("Insira o valor para debitar");
-                        valor = double.Parse(Console.ReadLine().Replace(".", "").Replace(",", "."), CultureInfo.InvariantCulture);
+                        valor = double.Parse(Console.ReadLine().Replace(",", "."), CultureInfo.InvariantCulture);
                         if (valor <= 0) {
                             Console.WriteLine("Insira uma quantia válida.");
                         }
@@ -32,7 +32,7 @@ namespace ContasBancarias_at.Models
                 if (input == 2) {
                     while (valor <= 0) {
                         Console.WriteLine("Insira o valor para creditar");
-                        valor = double.Parse(Console.ReadLine().Replace(".", "").Replace(",", "."), CultureInfo.InvariantCulture);
+                        valor = double.Parse(Console.ReadLine().Replace(",", "."), CultureInfo.InvariantCulture);
                         if (valor <= 0) {
                             Console.WriteLine("Insira uma quantia válida.");
                         }
@@ -61,7 +61,7 @@ namespace ContasBancarias_at.Models
             }
 
             correntistaNovo = Validacao.ValidarNomeComposto();
-            saldoNovo = Validacao.ValidarSaldo();
+            saldoNovo = Validacao.ValidarSaldoNovo();
 
             try {
                 Conta contaNova = new Conta(idNovo, correntistaNovo, saldoNovo);
