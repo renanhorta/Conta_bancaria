@@ -22,10 +22,10 @@ namespace ContasBancarias_at.Menu
             Console.WriteLine("--------------------------------------");
             Console.WriteLine("Insira uma das opções abaixo para seguir com o programa:");
             Console.WriteLine("1 - Incluir uma conta");
-            Console.WriteLine("2 - Alterar uma conta");
+            Console.WriteLine("2 - Alterar saldo de uma conta");
             Console.WriteLine("3 - Excluir uma conta");
             Console.WriteLine("4 - Gerar um relatório");
-            Console.WriteLine("5 - Sair do menu");
+            Console.WriteLine("5 - Sair do programa");
             Console.WriteLine("--------------------------------------");
         }
         public static int LerComOpcao() {

@@ -10,7 +10,7 @@ namespace ContasBancarias_at
         static void Main(string[] args)
         {
             List<Conta> listaContas = new List<Conta>();
-            Arquivo.LerArquivo(listaContas);
+            listaContas = Arquivo.LerArquivo(listaContas);
             Menus.ExibirMenu(listaContas);
             
         }

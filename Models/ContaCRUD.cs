@@ -51,27 +51,25 @@ namespace ContasBancarias_at.Models
             string correntistaNovo;
             double saldoNovo;
 
-            try
-            {
-                if (listaDeContas.Count > 0)
-                {
-                    Conta ultimaConta = listaDeContas[listaDeContas.Count - 1];
-                    idNovo = ultimaConta.Id + 1;
-                    correntistaNovo = Validacao.ValidarNomeComposto();
-                    saldoNovo = Validacao.ValidarSaldo();
+            //Conta ultimaConta = listaDeContas[listaDeContas.Count - 1];
+            if (listaDeContas.Count == 0) {
+                idNovo = 1;
+            }
+            else {
+                Conta ultimaConta = listaDeContas[listaDeContas.Count - 1];
+                idNovo = ultimaConta.Id + 1;
+            }
 
-                    try {
-                        Conta contaNova = new Conta(idNovo, correntistaNovo, saldoNovo);
-                        listaDeContas.Add(contaNova);
-                    } catch (Exception ex) { 
-                        Console.WriteLine("Não foi possivel adicionar a nova conta.\n Error: " + ex); 
-                    }
-                }
+            correntistaNovo = Validacao.ValidarNomeComposto();
+            saldoNovo = Validacao.ValidarSaldo();
+
+            try {
+                Conta contaNova = new Conta(idNovo, correntistaNovo, saldoNovo);
+                listaDeContas.Add(contaNova);
+            } catch (Exception ex) { 
+                Console.WriteLine("Não foi possivel adicionar a nova conta.\n Error: " + ex); 
             }
-            catch (Exception)
-            {
-                Console.WriteLine("A lista de contas está vazia.");
-            }
+            
         }
 
         public static Conta PesquisarConta(List<Conta> listaDeContas)

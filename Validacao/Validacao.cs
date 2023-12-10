@@ -55,8 +55,9 @@ namespace ContasBancarias_at.ValidarEntradas
             }
             return saldoNulo;
         }
-
-        public static string ValidarNomeComposto() {
+        
+        public static string ValidarNomeComposto()
+        {
             string correntistaNovo;
 
             do {
@@ -65,12 +66,18 @@ namespace ContasBancarias_at.ValidarEntradas
 
                 if (string.IsNullOrEmpty(correntistaNovo)) {
                     Console.WriteLine("Insira um nome.");
-                }
+                }// verifica se tem pelo menos 2 nomes
                 else if (correntistaNovo.Split(' ').Length < 2) {
                     Console.WriteLine("Insira um nome válido com pelo menos dois nomes.");
-                }
+                }// verifica se ao dividir o nome tem algum sim ou num
                 else if (correntistaNovo.Split(' ').Any(palavra => !palavra.All(char.IsLetter))) {
                     Console.WriteLine("Insira um nome válido, sem repetições de letras.");
+                }// verifica se os nomes tem somente letras
+                else if (correntistaNovo.Any(caracter => !char.IsLetter(caracter) && caracter != ' ')) {
+                    Console.WriteLine("Insira um nome válido, sem números ou símbolos.");
+                }// verifica se os nomes são identicos
+                else if (!CorrentistaUnico(correntistaNovo)) {
+                    Console.WriteLine("Insira um nome válido, sem repetições de nomes.");
                 }
                 else {
                     break;
@@ -79,7 +86,20 @@ namespace ContasBancarias_at.ValidarEntradas
 
             return correntistaNovo;
         }
+        private static bool CorrentistaUnico(string nome)
+        {
+            string[] nomes = nome.Split(' ');
 
+            for (int i = 0; i < nomes.Length - 1; i++) {
+                for (int j = i + 1; j < nomes.Length; j++) {
+                    if (nomes[i].Equals(nomes[j], StringComparison.OrdinalIgnoreCase)) {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
         public static double ValidarSaldo()
         {
             double saldoNovo;
