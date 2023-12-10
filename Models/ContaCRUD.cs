@@ -57,30 +57,15 @@ namespace ContasBancarias_at.Models
                 {
                     Conta ultimaConta = listaDeContas[listaDeContas.Count - 1];
                     idNovo = ultimaConta.Id + 1;
-                    Console.WriteLine("Insira o nome e sobrenome do correntista:");
-                    correntistaNovo = Console.ReadLine();
-                    if (correntistaNovo.Split(' ').Length < 2)
-                    {
-                        Console.WriteLine("Insira um nome válido com pelo menos dois nomes.");
-                        return;
+                    correntistaNovo = Validacao.ValidarNomeComposto();
+                    saldoNovo = Validacao.ValidarSaldo();
+
+                    try {
+                        Conta contaNova = new Conta(idNovo, correntistaNovo, saldoNovo);
+                        listaDeContas.Add(contaNova);
+                    } catch (Exception ex) { 
+                        Console.WriteLine("Não foi possivel adicionar a nova conta.\n Error: " + ex); 
                     }
-                    try
-                    {
-                        Console.WriteLine("Insira o seu saldo inicial: ");
-                        saldoNovo = double.Parse(Console.ReadLine().Replace(",", "."), CultureInfo.InvariantCulture);
-                        if (saldoNovo < 0)
-                        {
-                            Console.WriteLine("O valor deve se maior ou igual a zero");
-                            return;
-                        }
-                    }
-                    catch (Exception)
-                    {
-                        Console.WriteLine("Insira um valor válido.\n tente novamente.");
-                        return;
-                    }
-                    Conta contaNova = new Conta(idNovo, correntistaNovo, saldoNovo);
-                    listaDeContas.Add(contaNova);
                 }
             }
             catch (Exception)
@@ -96,7 +81,7 @@ namespace ContasBancarias_at.Models
 
             if (listaDeContas.Count == 0) {
                 Console.WriteLine("A lista de contas está vazia.");
-                Menus.ExibirMenu(listaDeContas);
+                Menus.LerComOpcao();
             }
 
             while (!opcaoValida) {
@@ -124,9 +109,13 @@ namespace ContasBancarias_at.Models
                     int input = Validacao.LerInteiro();
 
                     if (input == 1) {
-                        listaDeContas.Remove(contaExcluida);
-                        Console.WriteLine($"A conta foi removida com sucesso");
-                        entradaValida = true;
+                        if(Validacao.verificarSaldoNulo(contaExcluida) == true)
+                        {
+                            listaDeContas.Remove(contaExcluida);
+                            Console.WriteLine($"A conta foi removida com sucesso");
+                            entradaValida = true;
+                        }
+                        
                     }
                     
                     if (input == 2) {

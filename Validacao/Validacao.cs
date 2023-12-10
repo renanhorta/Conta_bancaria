@@ -1,6 +1,10 @@
-﻿using ContasBancarias_at.Models;
+﻿using ContasBancarias_at.Menu;
+using ContasBancarias_at.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Net.NetworkInformation;
 
 namespace ContasBancarias_at.ValidarEntradas
 {
@@ -37,6 +41,67 @@ namespace ContasBancarias_at.ValidarEntradas
                 Console.WriteLine("Conta não encontrada.");
                 return null;
             }
+        }
+
+        public static bool verificarSaldoNulo(Conta conta)
+        {
+            bool saldoNulo = false;
+            if (conta.Saldo != 0) {
+                Console.WriteLine("A conta não pode ser excluida por ter saldo ativo");
+                Menus.LerComOpcao();
+            }
+            else {
+                saldoNulo = true;
+            }
+            return saldoNulo;
+        }
+
+        public static string ValidarNomeComposto() {
+            string correntistaNovo;
+
+            do {
+                Console.WriteLine("Insira o nome e sobrenome do correntista:");
+                correntistaNovo = Console.ReadLine();
+
+                if (string.IsNullOrEmpty(correntistaNovo)) {
+                    Console.WriteLine("Insira um nome.");
+                }
+                else if (correntistaNovo.Split(' ').Length < 2) {
+                    Console.WriteLine("Insira um nome válido com pelo menos dois nomes.");
+                }
+                else if (correntistaNovo.Split(' ').Any(palavra => !palavra.All(char.IsLetter))) {
+                    Console.WriteLine("Insira um nome válido, sem repetições de letras.");
+                }
+                else {
+                    break;
+                }
+            } while (true);
+
+            return correntistaNovo;
+        }
+
+        public static double ValidarSaldo()
+        {
+            double saldoNovo;
+            
+            do {
+                Console.WriteLine("Insira o saldo:");
+                string input = Console.ReadLine();
+
+                if (double.TryParse(input.Replace(",", "."), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out saldoNovo))
+                {
+                    if (saldoNovo > 0) {
+                        return saldoNovo;
+                    }
+                    else {
+                        Console.WriteLine("Insira um valor maior que zero.");
+                    }
+                }
+                else {
+                    Console.WriteLine("Insira um valor válido.");
+                }
+
+            } while (true);
         }
     }
 }
