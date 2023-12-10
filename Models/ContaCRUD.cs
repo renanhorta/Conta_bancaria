@@ -71,7 +71,7 @@ namespace ContasBancarias_at.Models
             }
             
         }
-
+       
         public static Conta PesquisarConta(List<Conta> listaDeContas)
         {
             bool opcaoValida = false;
@@ -93,7 +93,7 @@ namespace ContasBancarias_at.Models
             }
             return contaEncontrada;
         }
-
+       
         public static void ExcluirConta(List<Conta> listaDeContas)
         {
             Conta contaExcluida = PesquisarConta(listaDeContas);
@@ -129,25 +129,7 @@ namespace ContasBancarias_at.Models
             }
 
         }
-        /*
-         * base da validação da pesquisa de conta
-        public static void ExcluirConta(List<Conta> listadeContas)
-        {
-            do { 
-            Console.WriteLine("Insira um número da conta que você deseja excluir");
-            int input = int.Parse(Console.ReadLine());
-            if (input  <= 0)
-                {
-                    Console.WriteLine("Insira um número válido, maior que zero");
-                }
-            if (input > listadeContas.Count)
-                {
-                    Console.WriteLine("Insira um número válido e disponível");
-                }
-            
-            } while (true);
-        }
-        */
+        
         public static void MostrarNegativados(List<Conta> listaDeContas)
         {
             List<Conta> contasNegativas = new List<Conta>();
@@ -171,7 +153,7 @@ namespace ContasBancarias_at.Models
                 Console.WriteLine(cc);
             }
         }
-
+        
         public static void MostrarValoresSelecionados(List<Conta> listaDeContas)
         {
             double saldoAPesquisar;
@@ -201,7 +183,7 @@ namespace ContasBancarias_at.Models
 
             }
         }
-
+       
         public static void MostrarTodosClientes(List<Conta> listaDeContas)
         {
             foreach (Conta cc in listaDeContas)

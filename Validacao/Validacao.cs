@@ -86,6 +86,7 @@ namespace ContasBancarias_at.ValidarEntradas
 
             return correntistaNovo;
         }
+        
         private static bool CorrentistaUnico(string nome)
         {
             string[] nomes = nome.Split(' ');
@@ -100,6 +101,7 @@ namespace ContasBancarias_at.ValidarEntradas
 
             return true;
         }
+       
         public static double ValidarSaldo()
         {
             double saldoNovo;

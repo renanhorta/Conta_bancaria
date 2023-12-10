@@ -11,17 +11,19 @@ namespace ContasBancarias_at.Models
         public double Saldo { get; set; }
 
         public Conta() { }
+       
         public Conta(int id, string correntista, double saldo)
         {
             Id = id;
             Correntista = correntista;
             Saldo = saldo;
         }
+        
         public override string ToString()
         {
             return "\n\nNum de conta " + Id + "\nCorretista: " +Correntista + "\nSaldo: " + " R$ " + Saldo;
         }
-
+       
         public string SalvarContaCSV()
         {
             return Id + ";" + Correntista + ";" + Saldo;
@@ -36,6 +38,7 @@ namespace ContasBancarias_at.Models
         {
             return Saldo >= saldoTeto;
         }
+        
         public string DebitarSaldo(double valor)
         {
             Saldo -= valor;
@@ -52,7 +55,6 @@ namespace ContasBancarias_at.Models
 
             return $"Foi feito um débito no valor de {valor} reais.\nNovo Saldo: R$ {Saldo}";
         }
-
 
         public string CreditarSaldo(double valor)
         {
