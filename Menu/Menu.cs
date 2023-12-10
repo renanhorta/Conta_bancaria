@@ -16,6 +16,7 @@ namespace ContasBancarias_at.Menu
                 SelecionarOpcaoMenu(input, listaDeContas);
                 input = LerComOpcao();
             }
+            FinalizarMenu(listaDeContas);
         }
         
         public static void OpcoesDoMenuPrincipal()
@@ -67,8 +68,7 @@ namespace ContasBancarias_at.Menu
                     GerarRelatorio(listaDeContas);
                     break;
                 case 5:
-                    Console.WriteLine("O programa ira ser fechado. \n Gravando arquivo...");
-                    Arquivo.GravarArquivo(listaDeContas);
+                    FinalizarMenu(listaDeContas);
                     break;
             }
         }
@@ -144,7 +144,7 @@ namespace ContasBancarias_at.Menu
             }
         }
 
-        public void finalizarMenu(List<Conta> listaDeContas)
+        public static void FinalizarMenu(List<Conta> listaDeContas)
         {
             Console.WriteLine("O programa será finalizado. \nGravando arquivo...");
             try {
