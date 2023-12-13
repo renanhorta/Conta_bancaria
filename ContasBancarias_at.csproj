@@ -43,10 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Arquivo.cs" />
+    <Compile Include="Arquivo.cs" />
     <Compile Include="Models\Conta.cs" />
     <Compile Include="Menu\Menu.cs" />
-    <Compile Include="Models\ContaCRUD.cs" />
+    <Compile Include="ContaCRUD.cs" />
     <Compile Include="Models\InterfaceConta.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

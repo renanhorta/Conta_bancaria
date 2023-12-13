@@ -12,37 +12,20 @@ namespace ContasBancarias_at.Models
         {
             Conta contaAlterada = PesquisarConta(listaDeContas);
             int input;
-            double valor = 0;
             do {
-                Console.WriteLine("A alteração é do tipo Débito [1] ou do tipo Crédito [2]");
-                input = Validacao.LerInteiro();
-
-                if (input == 1)  {
-                    while (valor <= 0) {
-                        Console.WriteLine("Insira o valor para debitar");
-                        valor = double.Parse(Console.ReadLine().Replace(",", "."), CultureInfo.InvariantCulture);
-                        if (valor <= 0) {
-                            Console.WriteLine("Insira uma quantia válida.");
-                        }
-                    }
-                    Console.WriteLine(contaAlterada.DebitarSaldo(valor));
+                try
+                {
+                    Console.WriteLine("A alteração é do tipo Débito [1] ou do tipo Crédito [2]");
+                    input = Validacao.LerInteiro();
+                    Validacao.ValidarValorDeAlteracao(input, contaAlterada);
                     break;
-                }
-
-                if (input == 2) {
-                    while (valor <= 0) {
-                        Console.WriteLine("Insira o valor para creditar");
-                        valor = double.Parse(Console.ReadLine().Replace(",", "."), CultureInfo.InvariantCulture);
-                        if (valor <= 0) {
-                            Console.WriteLine("Insira uma quantia válida.");
-                        }
-                    }
-                    Console.WriteLine(contaAlterada.CreditarSaldo(valor));
-                    break;
+                }catch(Exception)
+                {
+                    Console.WriteLine("Insira uma quantia válida");
                 }
             }
-
             while (true);
+
         }
 
         public static void Incluirconta(List<Conta> listaDeContas)
@@ -51,14 +34,14 @@ namespace ContasBancarias_at.Models
             string correntistaNovo;
             double saldoNovo;
 
-            //Conta ultimaConta = listaDeContas[listaDeContas.Count - 1];
-            if (listaDeContas.Count == 0) {
-                idNovo = 1;
-            }
-            else {
-                Conta ultimaConta = listaDeContas[listaDeContas.Count - 1];
-                idNovo = ultimaConta.Id + 1;
-            }
+            do {
+                idNovo = Validacao.PedirIdAoUsuario();
+
+                if (Validacao.ContaExisteNaLista(listaDeContas, idNovo))
+                {
+                    Console.WriteLine("Já existe uma conta com o ID fornecido. Por favor, escolha outro ID.");
+                }
+            } while (Validacao.ContaExisteNaLista(listaDeContas, idNovo));
 
             correntistaNovo = Validacao.ValidarNomeComposto();
             saldoNovo = Validacao.ValidarSaldoNovo();
@@ -66,10 +49,12 @@ namespace ContasBancarias_at.Models
             try {
                 Conta contaNova = new Conta(idNovo, correntistaNovo, saldoNovo);
                 listaDeContas.Add(contaNova);
-            } catch (Exception ex) { 
-                Console.WriteLine("Não foi possivel adicionar a nova conta.\n Error: " + ex); 
+                Console.WriteLine("Conta adicionada com sucesso!");
             }
-            
+            catch (Exception ex) {
+                Console.WriteLine("Não foi possível adicionar a nova conta. Erro: " + ex.Message);
+            }
+
         }
        
         public static Conta PesquisarConta(List<Conta> listaDeContas)

@@ -144,5 +144,44 @@ namespace ContasBancarias_at.ValidarEntradas
 
             } while (true);
         }
+
+        public static void ValidarValorDeAlteracao(int input, Conta contaAlterada)
+        {
+            double valor = 0;
+            if ((input == 1) || (input == 2)) {
+                switch (input) {  
+                    case 1:
+                        Console.WriteLine("Insira o valor para debitar");
+                        valor = double.Parse(Console.ReadLine().Replace(",", "."), CultureInfo.InvariantCulture);
+                        Console.WriteLine(contaAlterada.DebitarSaldo(valor));
+                        break;
+                    case 2:
+                        Console.WriteLine("Insira o valor para creditar");
+                        valor = double.Parse(Console.ReadLine().Replace(",", "."), CultureInfo.InvariantCulture);
+                        Console.WriteLine(contaAlterada.CreditarSaldo(valor));
+                        break;
+                }
+            }
+            else {
+                Console.WriteLine("Insira uma quantia válida");
+            }
+        }
+
+        public static int PedirIdAoUsuario()
+        {
+            int id;
+            Console.Write("Digite o ID da nova conta: ");
+            while (!int.TryParse(Console.ReadLine(), out id) || id <= 0)
+            {
+                Console.WriteLine("ID inválido. Por favor, digite um número inteiro positivo.");
+                Console.Write("Digite o ID da nova conta: ");
+            }
+            return id;
+        }
+
+        public static bool ContaExisteNaLista(List<Conta> listaDeContas, int id)
+        {
+            return listaDeContas.Any(conta => conta.Id == id);
+        }
     }
 }
