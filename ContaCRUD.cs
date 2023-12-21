@@ -11,17 +11,13 @@ namespace ContasBancarias_at.Models
         public static void AlterarConta(List<Conta> listaDeContas)
         {
             Conta contaAlterada = PesquisarConta(listaDeContas);
-            int input;
+            Console.WriteLine(contaAlterada.ToString());
             do {
-                try
-                {
-                    Console.WriteLine("A alteração é do tipo Débito [1] ou do tipo Crédito [2]");
-                    input = Validacao.LerInteiro();
-                    Validacao.ValidarValorDeAlteracao(input, contaAlterada);
+                try {
+                    Validacao.ValidarValorDeAlteracao(contaAlterada);
                     break;
-                }catch(Exception)
-                {
-                    Console.WriteLine("Insira uma quantia válida");
+                }catch(Exception) {
+                    Console.WriteLine("Insira uma opção válida");
                 }
             }
             while (true);
@@ -37,8 +33,7 @@ namespace ContasBancarias_at.Models
             do {
                 idNovo = Validacao.PedirIdAoUsuario();
 
-                if (Validacao.ContaExisteNaLista(listaDeContas, idNovo))
-                {
+                if (Validacao.ContaExisteNaLista(listaDeContas, idNovo)) {
                     Console.WriteLine("Já existe uma conta com o ID fornecido. Por favor, escolha outro ID.");
                 }
             } while (Validacao.ContaExisteNaLista(listaDeContas, idNovo));
@@ -71,8 +66,7 @@ namespace ContasBancarias_at.Models
                 Console.WriteLine("Insira o ID da conta que você deseja encontrar");
                 int inputId = Validacao.LerInteiro();
                 contaEncontrada = Validacao.ValidarObjtNaLista(inputId, listaDeContas);
-                if (contaEncontrada != null)
-                {
+                if (contaEncontrada != null) {
                     opcaoValida = true;
                 }
             }
@@ -83,17 +77,14 @@ namespace ContasBancarias_at.Models
         {
             Conta contaExcluida = PesquisarConta(listaDeContas);
 
-            if (listaDeContas.Contains(contaExcluida))
-            {
+            if (listaDeContas.Contains(contaExcluida)) {
                 bool entradaValida = false;
-                do
-                {
+                do {
                     Console.WriteLine($"Você deseja excluir a seguinte conta?\n{contaExcluida}\n\n[1] SIM - [2] NÃO");
                     int input = Validacao.LerInteiro();
 
                     if (input == 1) {
-                        if(Validacao.verificarSaldoNulo(contaExcluida) == true)
-                        {
+                        if(Validacao.verificarSaldoNulo(contaExcluida) == true) {
                             listaDeContas.Remove(contaExcluida);
                             Console.WriteLine($"A conta foi removida com sucesso");
                             entradaValida = true;
@@ -108,8 +99,7 @@ namespace ContasBancarias_at.Models
 
                 } while (!entradaValida);
             }
-            else
-            {
+            else {
                 Console.WriteLine("A conta não foi encontrada na lista.");
             }
 
@@ -118,10 +108,8 @@ namespace ContasBancarias_at.Models
         public static void MostrarNegativados(List<Conta> listaDeContas)
         {
             List<Conta> contasNegativas = new List<Conta>();
-            try
-            {
-                foreach (Conta cc in listaDeContas)
-                {
+            try {
+                foreach (Conta cc in listaDeContas) {
                     if (cc.TemSaldoNegativo())
                     {
                         contasNegativas.Add(cc);

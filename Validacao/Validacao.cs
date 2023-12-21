@@ -28,21 +28,18 @@ namespace ContasBancarias_at.ValidarEntradas
             return num;
 
         }
-
-        public static Conta ValidarObjtNaLista (int num, List<Conta> listaDeContas)
+        public static Conta ValidarObjtNaLista(int IdPesquisado, List<Conta> listaDeContas)
         {
-            if ((num > 0) && (num < listaDeContas.Count))
+            foreach(Conta conta in listaDeContas)
             {
-                Conta contaEncontrada = listaDeContas.Find(conta => conta.Id == num);
-                return contaEncontrada;
+                if(conta.Id == IdPesquisado)
+                {
+                    return conta;
+                }
             }
-            else
-            {
-                Console.WriteLine("Conta não encontrada.");
-                return null;
-            }
+            return null;
         }
-
+     
         public static bool verificarSaldoNulo(Conta conta)
         {
             bool saldoNulo = false;
@@ -145,11 +142,16 @@ namespace ContasBancarias_at.ValidarEntradas
             } while (true);
         }
 
-        public static void ValidarValorDeAlteracao(int input, Conta contaAlterada)
+        public static void ValidarValorDeAlteracao(Conta contaAlterada)
         {
+            int input;
             double valor = 0;
-            if ((input == 1) || (input == 2)) {
-                switch (input) {  
+            do
+            {
+                Console.WriteLine("Insira a opção [1] para DEBITAR e [2] para CREDITAR.");
+                input = Validacao.LerInteiro();
+                switch (input)
+                {
                     case 1:
                         Console.WriteLine("Insira o valor para debitar");
                         valor = double.Parse(Console.ReadLine().Replace(",", "."), CultureInfo.InvariantCulture);
@@ -160,11 +162,11 @@ namespace ContasBancarias_at.ValidarEntradas
                         valor = double.Parse(Console.ReadLine().Replace(",", "."), CultureInfo.InvariantCulture);
                         Console.WriteLine(contaAlterada.CreditarSaldo(valor));
                         break;
+                    default:
+                        Console.WriteLine("Insira uma opção válida (1 ou 2)");
+                        break;
                 }
-            }
-            else {
-                Console.WriteLine("Insira uma quantia válida");
-            }
+            } while(input != 1 && input != 2);
         }
 
         public static int PedirIdAoUsuario()
