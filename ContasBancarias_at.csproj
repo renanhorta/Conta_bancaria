@@ -56,5 +56,8 @@
     <None Include="App.config" />
     <None Include="src\csv_conta.csv" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="src\images\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
